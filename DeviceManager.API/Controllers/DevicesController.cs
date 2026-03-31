@@ -83,7 +83,6 @@ namespace DeviceManager.API.Controllers
             }
 
             _context.Entry(device).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
 
             try
             {
