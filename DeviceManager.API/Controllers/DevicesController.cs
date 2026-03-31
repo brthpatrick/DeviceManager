@@ -73,5 +73,33 @@ namespace DeviceManager.API.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDevice(int id, Device device)
+        {
+            if (id != device.Id)
+            {
+                return BadRequest(new { message = "ID mismatch." });
+            }
+
+            _context.Entry(device).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var exists = await _context.Devices.AnyAsync(d => d.Id == id);
+                if (!exists)
+                {
+                    return NotFound(new { message = "Device not found." });
+                }
+                throw;
+            }
+
+            return NoContent();
+        }
     }
 }
