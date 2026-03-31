@@ -1,1 +1,61 @@
-<p>device-form works!</p>
+<div class="form-card">
+  <h2>{{ isEditMode ? 'Edit Device' : 'Add New Device' }}</h2>
+
+  <div class="form-group">
+    <label>Name *</label>
+    <input [(ngModel)]="device.name" placeholder="e.g. iPhone 15 Pro" />
+    <span class="error" *ngIf="submitted && !device.name">Name is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Manufacturer *</label>
+    <input [(ngModel)]="device.manufacturer" placeholder="e.g. Apple" />
+    <span class="error" *ngIf="submitted && !device.manufacturer">Manufacturer is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Type *</label>
+    <select [(ngModel)]="device.type">
+      <option value="">Select type</option>
+      <option value="Phone">Phone</option>
+      <option value="Tablet">Tablet</option>
+    </select>
+    <span class="error" *ngIf="submitted && !device.type">Type is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Operating System *</label>
+    <input [(ngModel)]="device.operatingSystem" placeholder="e.g. iOS" />
+    <span class="error" *ngIf="submitted && !device.operatingSystem">OS is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>OS Version *</label>
+    <input [(ngModel)]="device.osVersion" placeholder="e.g. 17.0" />
+    <span class="error" *ngIf="submitted && !device.osVersion">OS Version is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Processor *</label>
+    <input [(ngModel)]="device.processor" placeholder="e.g. A17 Pro" />
+    <span class="error" *ngIf="submitted && !device.processor">Processor is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>RAM (GB) *</label>
+    <input type="number" [(ngModel)]="device.ram" placeholder="e.g. 8" />
+    <span class="error" *ngIf="submitted && !device.ram">RAM is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea [(ngModel)]="device.description" placeholder="Optional description" rows="3"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button (click)="save()" class="btn-save">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+    <a routerLink="/devices" class="btn-cancel">Cancel</a>
+  </div>
+</div>

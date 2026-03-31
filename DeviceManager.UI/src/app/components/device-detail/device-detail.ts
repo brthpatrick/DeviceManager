@@ -1,9 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { DeviceService } from '../../services/device';
+import { Device } from '../../models/device.model';
 
 @Component({
   selector: 'app-device-detail',
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './device-detail.html',
   styleUrl: './device-detail.css',
 })
-export class DeviceDetail {}
+export class DeviceDetail implements OnInit {
+  device: Device | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private deviceService: DeviceService
+  ) {}
+
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.deviceService.getDevice(id).subscribe({
+      next: (data) => this.device = data,
+      error: (err) => console.error('Error loading device:', err)
+    });
+  }
+}

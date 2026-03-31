@@ -142,3 +142,4 @@ C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\ne
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.pdb
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.genruntimeconfig.cache
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\ref\DeviceManager.API.dll
+C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.sourcelink.json
