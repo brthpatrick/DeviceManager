@@ -49,20 +49,35 @@ export class DeviceForm implements OnInit {
   save(): void {
     this.submitted = true;
 
-    if (!this.device.name || !this.device.manufacturer || !this.device.type || !this.device.operatingSystem ||
-       !this.device.osVersion || !this.device.processor || !this.device.ram) {
+    if (!this.device.name || !this.device.manufacturer || !this.device.type ||
+        !this.device.operatingSystem || !this.device.osVersion ||
+        !this.device.processor || !this.device.ram) {
       return;
     }
 
     if (this.isEditMode) {
-      this.deviceService.updateDevice(this.device.id, this. device).subscribe({
+      this.deviceService.updateDevice(this.device.id, this.device).subscribe({
         next: () => this.router.navigate(['/devices']),
         error: (err) => console.error('Error updating device:', err)
       });
     } else {
-      this.deviceService.createDevice(this.device).subscribe({
-        next: () => this.router.navigate(['/devices']),
-        error: (err) => console.error('Error creating device:', err)
+      this.deviceService.getDevices().subscribe({
+        next: (devices) => {
+          const exists = devices.some(
+            d => d.name.toLowerCase() === this.device.name.toLowerCase() &&
+                 d.manufacturer.toLowerCase() === this.device.manufacturer.toLowerCase()
+          );
+
+          if (exists) {
+            alert('A device with this name and manufacturer already exists!');
+            return;
+          }
+
+          this.deviceService.createDevice(this.device).subscribe({
+            next: () => this.router.navigate(['/devices']),
+            error: (err) => console.error('Error creating device:', err)
+          });
+        }
       });
     }
   }

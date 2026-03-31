@@ -1,33 +1,37 @@
 <h2>Devices</h2>
 
-<div *ngIf="devices.length === 0" class="empty-message">
-    No device found. Add one using the button above.
-</div>
+<p>Loaded devices: {{ devices.length }}</p>
 
-<table *ngIf="devices.length > 0" class="device-table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Manufacturer</th>
-            <th>Type</th>
-            <th>OS</th>
-            <th>Assigned To</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let device of devices">
-            <td>
-                <a [routerLink]="['/devices', device.id]">{{ device.name }}</a>
-            </td>
-            <td>{{ device.manufacturer }}</td>
-            <td>{{ device.type }}</td>
-            <td>{{ device.operatingSystem }} {{ device.osVersion }}</td>
-            <td>{{ device.user? device.user.name : 'Unassigned' }}</td>
-            <td class="actions">
-                <a [routerLink]="['/devices', device.id, 'edit']" class="btn-edit">Edit</a>
-                <button (click)="deleteDevice(device.id)" class="btn-delete">Delete</button>
-            </td>
-        </tr>
-    </tbody>
+@if (devices.length === 0) {
+  <p class="empty-message">No devices found. Add one using the button above.</p>
+}
+
+<table class="device-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Manufacturer</th>
+      <th>Type</th>
+      <th>OS</th>
+      <th>Assigned To</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (device of devices; track device.id) {
+      <tr>
+        <td>
+          <a [routerLink]="['/devices', device.id]">{{ device.name }}</a>
+        </td>
+        <td>{{ device.manufacturer }}</td>
+        <td>{{ device.type }}</td>
+        <td>{{ device.operatingSystem }} {{ device.osVersion }}</td>
+        <td>{{ device.user ? device.user.name : 'Unassigned' }}</td>
+        <td class="actions">
+          <a [routerLink]="['/devices', device.id, 'edit']" class="btn-edit">Edit</a>
+          <button (click)="deleteDevice(device.id)" class="btn-delete">Delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>

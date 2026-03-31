@@ -1,41 +1,43 @@
-<div *ngIf="device" class="detail-card">
+@if (device) {
+  <div class="detail-card">
     <h2>{{ device.name }}</h2>
 
-    <div class="'detail-grid">
-        <div class="detail-item">
-            <span class="label">Manufacturer</span>
-            <span class="value">{{ device.manufacturer }}</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">Type</span>
-            <span class="value">{{ device.type }}</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">Operating System</span>
-            <span class="value">{{ device.operatingSystem }} {{ device.osVersion }}</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">Processor</span>
-            <span class="value">{{ device.processor }}</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">RAM</span>
-            <span class="value">{{ device.ram }} GB</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">Description</span>
-            <span class="value">{{ device.description || 'No description'}}</span>
-        </div>
-        <div class="detail-item">
-            <span class="label">Assigned To</span>
-            <span class="value">{{ device.user? device.user.name : 'Unassigned'}}</span>
-        </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">Manufacturer</span>
+        <span class="value">{{ device.manufacturer }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Type</span>
+        <span class="value">{{ device.type }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Operating System</span>
+        <span class="value">{{ device.operatingSystem }} {{ device.osVersion }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Processor</span>
+        <span class="value">{{ device.processor }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">RAM</span>
+        <span class="value">{{ device.ram }} GB</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Description</span>
+        <span class="value">{{ device.description || 'No description' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Assigned To</span>
+        <span class="value">{{ device.user ? device.user.name : 'Unassigned' }}</span>
+      </div>
     </div>
 
     <div class="detail-actions">
-        <a [routerLink]="['/devices', device.id, 'edit']" class="btn-edit">Edit</a>
-        <a routerLink="/devices" class="btn-back">Back to List</a>
+      <a [routerLink]="['/devices', device.id, 'edit']" class="btn-edit">Edit</a>
+      <a routerLink="/devices" class="btn-back">Back to List</a>
     </div>
-</div>
-
-<div *ngIf="!device" class="loading">Loading...</div>
+  </div>
+} @else {
+  <p class="loading">Loading...</p>
+}

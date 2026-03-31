@@ -44,39 +44,19 @@ namespace DeviceManager.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Device>> CreateDevice(Device device)
         {
+            var exists = await _context.Devices
+                        .AnyAsync(d => d.Name.ToLower() == device.Name.ToLower() 
+                        && d.Manufacturer.ToLower() == device.Manufacturer.ToLower());
+
+            if (exists)
+            {
+                return Conflict(new { message = "A device with this name and manufacturer already exists." });
+            }
+
             _context.Devices.Add(device);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDevice), new { id = device.Id }, device);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDevice(int id, Device device)
-        {
-            if (id != device.Id)
-            {
-                return BadRequest(new {message = "ID mismatch." });
-            }
-
-            var existingDevice = await _context.Devices.FindAsync(id);
-            if (existingDevice == null)
-            {
-                return NotFound(new { message = "Device not found." });
-            }
-
-            existingDevice.Name = device.Name;
-            existingDevice.Manufacturer = device.Manufacturer;
-            existingDevice.Type = device.Type;
-            existingDevice.OperatingSystem = device.OperatingSystem;
-            existingDevice.OSVersion = device.OSVersion;
-            existingDevice.Processor = device.Processor;
-            existingDevice.RAM = device.RAM;
-            existingDevice.Description = device.Description;
-            existingDevice.UserId = device.UserId;
-        
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         [HttpDelete("{id}")]
