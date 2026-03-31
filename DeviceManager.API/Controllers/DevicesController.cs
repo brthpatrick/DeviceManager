@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DeviceManager.API.Data;
 using DeviceManager.API.Models;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace DeviceManager.API.Controllers
 {
@@ -99,6 +100,62 @@ namespace DeviceManager.API.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost("{id}/assign")]
+        public async Task<IActionResult> AssignDevice(int id)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized(new { message = "You must be logged in." });
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var device = await _context.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound(new { message = "Device not found." });
+            }
+
+            if (device.UserId != null)
+            {
+                return Conflict(new { message = "This device is already assigend to someone." });
+            }
+
+            device.UserId = userId;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Device assigned successfully." });
+        }
+
+        [HttpPost("{id}/unassign")]
+        public async Task<IActionResult> UnassignDevice(int id)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized(new {message = "You must be logged in." });
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+            var device = await _context.Devices.FindAsync(id);
+
+            if (device == null)
+            {
+                return NotFound(new { message = "Device not found." });
+            }
+
+            if (device.UserId != userId)
+            {
+                return BadRequest(new { message = "You can only unassign devices assigned to yourself." });
+            }
+
+            device.UserId = null;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Device unassigned successfully." });
         }
     }
 }
