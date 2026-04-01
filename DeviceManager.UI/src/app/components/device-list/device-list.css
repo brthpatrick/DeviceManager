@@ -61,3 +61,23 @@ a:hover {
   cursor: pointer;
   font-size: 13px;
 }
+
+.btn-assign {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-unassign {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}

@@ -1,6 +1,15 @@
-<nav class="navbar">  
+<nav class="navbar">
   <a routerLink="/devices" class="nav-brand">Device Manager</a>
-  <a routerLink="/devices/new" class="nav-link">+ Add Device</a>
+  <div class="nav-right">
+    @if (authService.isLoggedIn()) {
+      <a routerLink="/devices/new" class="nav-link">+ Add Device</a>
+      <span class="nav-user">{{ authService.getCurrentUser()?.name }}</span>
+      <button (click)="logout()" class="nav-link nav-logout">Logout</button>
+    } @else {
+      <a routerLink="/login" class="nav-link">Login</a>
+      <a routerLink="/register" class="nav-link">Register</a>
+    }
+  </div>
 </nav>
 <div class="container">
   <router-outlet></router-outlet>

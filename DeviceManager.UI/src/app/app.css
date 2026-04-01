@@ -3,7 +3,7 @@
   padding: 12px 24px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
 }
 
 .nav-brand {
@@ -13,16 +13,34 @@
   text-decoration: none;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .nav-link {
   color: white;
   text-decoration: none;
   background-color: rgba(255, 255, 255, 0.2);
   padding: 6px 14px;
   border-radius: 4px;
+  font-size: 14px;
 }
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-logout {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-user {
+  color: white;
+  font-size: 14px;
 }
 
 .container {
