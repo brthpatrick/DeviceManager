@@ -1,6 +1,7 @@
 <nav class="navbar">
-  <a routerLink="/devices" class="nav-brand">Device Manager</a>
+  <a routerLink="/" class="nav-brand">Device Manager</a>
   <div class="nav-right">
+    <a routerLink="/devices" class="nav-link">Devices</a>
     @if (authService.isLoggedIn()) {
       <a routerLink="/devices/new" class="nav-link">+ Add Device</a>
       <span class="nav-user">{{ authService.getCurrentUser()?.name }}</span>
