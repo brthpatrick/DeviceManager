@@ -15,6 +15,9 @@ import { Device } from '../../models/device.model';
 export class DeviceList implements OnInit {
   devices: Device[] = [];
   searchQuery = '';
+  totalDevices = 0;
+  assignedDevices = 0;
+  unassignedDevices = 0;
 
   constructor(
     private deviceService: DeviceService,
@@ -30,6 +33,9 @@ export class DeviceList implements OnInit {
     this.deviceService.getDevices().subscribe({
       next: (data) => {
         this.devices = data;
+        this.totalDevices = data.length;
+        this.assignedDevices = data.filter(d => d.userId != null).length;
+        this.unassignedDevices = data.filter(d => d.userId == null).length;
         this.cdr.detectChanges();
       },
       error: (err) => console.error('Error loading devices:', err)
