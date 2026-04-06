@@ -42,4 +42,8 @@ export class DeviceService {
   generateDescription(device: any): Observable<any> {
     return this.http.post('http://localhost:5251/api/ai/generate-description', device);
   }
+
+  searchDevices(query: string): Observable<Device[]> {
+    return this.http.get<Device[]>(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`);
+  }
 }

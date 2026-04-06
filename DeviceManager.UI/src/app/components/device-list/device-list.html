@@ -1,7 +1,21 @@
 <h2>Devices</h2>
 
+<div class="search-bar">
+  <input
+    [(ngModel)]="searchQuery"
+    placeholder="Search devices by name, manufacturer, processor, RAM..."
+    (keyup.enter)="search()"
+  />
+  <button (click)="search()" class="btn-search">Search</button>
+  @if (searchQuery) {
+    <button (click)="clearSearch()" class="btn-clear">Clear</button>
+  }
+</div>
+
 @if (devices.length === 0) {
-  <p class="empty-message">No devices found. Add one using the button above.</p>
+  <p class="empty-message">
+    {{ searchQuery ? 'No devices match your search.' : 'No devices found. Add one using the button above.' }}
+  </p>
 }
 
 @if (devices.length > 0) {

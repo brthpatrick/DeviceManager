@@ -157,5 +157,60 @@ namespace DeviceManager.API.Controllers
 
             return Ok(new { message = "Device unassigned successfully." });
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Device>>> SearchDevices([FromQuery] string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new List<Device>());
+            }
+
+            var normalizedQuery = new string(q.ToLower()
+                .Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c))
+                .ToArray());
+
+            var tokens = normalizedQuery
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
+                .ToList();
+
+            if (tokens.Count == 0)
+            {
+                return Ok(new List<Device>());
+            }
+
+            var allDevices = await _context.Devices
+                .Include(d => d.User)
+                .ToListAsync();
+
+            var scoredDevices = allDevices.Select(device =>
+            {
+                int score = 0;
+
+                foreach (var token in tokens)
+                {
+                    if (device.Name.ToLower().Contains(token))
+                        score += 10;
+
+                    if (device.Manufacturer.ToLower().Contains(token))
+                        score += 8;
+
+                    if (device.Processor.ToLower().Contains(token))
+                        score += 5;
+
+                    if (device.RAM.ToString().Contains(token))
+                        score += 3;
+                }
+
+                return new { Device = device, Score = score };
+            })
+            .Where(x => x.Score > 0)
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Device)
+            .ToList();
+
+            return Ok(scoredDevices);
+        }
     }
 }
