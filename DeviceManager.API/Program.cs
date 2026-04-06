@@ -30,6 +30,7 @@ builder.Services.AddControllers()
     {
       options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;  
     });
+builder.Services.AddSingleton<DeviceManager.API.Services.GeminiService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>

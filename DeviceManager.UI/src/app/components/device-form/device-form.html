@@ -64,6 +64,9 @@
   <div class="form-group">
     <label>Description</label>
     <textarea [(ngModel)]="device.description" placeholder="Optional description" rows="3"></textarea>
+    <button type="button" (click)="generateDescription()" class="btn-generate" [disabled]="isGenerating">
+      {{ isGenerating ? 'Generating...' : 'Generate with AI' }}
+    </button>
   </div>
 
   <div class="form-actions">

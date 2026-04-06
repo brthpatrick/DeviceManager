@@ -7,7 +7,9 @@ C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\ne
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\DeviceManager.API.pdb
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -128,6 +130,7 @@ C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\ne
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.csproj.CoreCompileInputs.cache
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.sourcelink.json
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\staticwebassets\msbuild.DeviceManager.API.Microsoft.AspNetCore.StaticWebAssets.props
@@ -142,6 +145,3 @@ C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\ne
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.pdb
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.genruntimeconfig.cache
 C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\ref\DeviceManager.API.dll
-C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\obj\Debug\net8.0\DeviceManager.API.sourcelink.json
-C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
-C:\Users\Patrick\Desktop\Device Management System\DeviceManager.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

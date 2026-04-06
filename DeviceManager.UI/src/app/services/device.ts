@@ -38,4 +38,8 @@ export class DeviceService {
   unassignDevice(id: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/unassign`, {});
   }
+
+  generateDescription(device: any): Observable<any> {
+    return this.http.post('http://localhost:5251/api/ai/generate-description', device);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -28,11 +28,13 @@ export class DeviceForm implements OnInit {
 
   isEditMode = false;
   submitted = false;
+  isGenerating = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -40,10 +42,44 @@ export class DeviceForm implements OnInit {
     if (id) {
       this.isEditMode = true;
       this.deviceService.getDevice(Number(id)).subscribe({
-        next: (data) => this.device = data,
+        next: (data) => {
+          this.device = data;
+          this.cdr.detectChanges();
+        },
         error: (err) => console.error('Error loading device:', err)
       });
     }
+  }
+
+  generateDescription(): void {
+    if (!this.device.name || !this.device.manufacturer || !this.device.type ||
+        !this.device.operatingSystem || !this.device.processor || !this.device.ram) {
+      alert('Please fill in Name, Manufacturer, Type, OS, Processor, and RAM before generating a description.');
+      return;
+    }
+
+    this.isGenerating = true;
+
+    this.deviceService.generateDescription({
+      name: this.device.name,
+      manufacturer: this.device.manufacturer,
+      type: this.device.type,
+      operatingSystem: this.device.operatingSystem,
+      processor: this.device.processor,
+      ram: this.device.ram
+    }).subscribe({
+      next: (response) => {
+        this.device.description = response.description;
+        this.isGenerating = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error generating description:', err);
+        alert('Failed to generate description.');
+        this.isGenerating = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   save(): void {
