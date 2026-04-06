@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DeviceService } from '../../services/device';
@@ -15,13 +15,17 @@ export class DeviceDetail implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.deviceService.getDevice(id).subscribe({
-      next: (data) => this.device = data,
+      next: (data) => {
+        this.device = data;
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error('Error loading device:', err)
     });
   }
