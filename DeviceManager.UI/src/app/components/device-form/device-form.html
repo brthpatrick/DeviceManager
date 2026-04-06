@@ -1,78 +1,132 @@
-<div class="form-card">
-  <h2>{{ isEditMode ? 'Edit Device' : 'Add New Device' }}</h2>
+<div class="page-header">
+  <p class="breadcrumb">DEVICES › {{ isEditMode ? 'EDIT' : 'CONFIGURATION' }}</p>
+  <h1>{{ isEditMode ? 'Edit Device' : 'Add New Device' }}</h1>
+  <p class="page-description">Define technical specifications and metadata for your organizational asset. Ensure all required fields marked with an asterisk are completed.</p>
+</div>
 
-  <div class="form-group">
-    <label>Name *</label>
-    <input [(ngModel)]="device.name" placeholder="e.g. iPhone 15 Pro" />
-    @if (submitted && !device.name) {
-      <span class="error">Name is required</span>
-    }
+<div class="form-layout">
+  <div class="form-card">
+    <h2>Form Details</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>NAME *</label>
+        <input [(ngModel)]="device.name" placeholder="e.g. iPhone 15 Pro" />
+        @if (submitted && !device.name) {
+          <span class="error">Name is required</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>MANUFACTURER *</label>
+        <input [(ngModel)]="device.manufacturer" placeholder="e.g. Apple" />
+        @if (submitted && !device.manufacturer) {
+          <span class="error">Manufacturer is required</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>TYPE *</label>
+        <select [(ngModel)]="device.type">
+          <option value="">Select type</option>
+          <option value="Phone">Phone</option>
+          <option value="Tablet">Tablet</option>
+        </select>
+        @if (submitted && !device.type) {
+          <span class="error">Type is required</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>OPERATING SYSTEM *</label>
+        <input [(ngModel)]="device.operatingSystem" placeholder="e.g. iOS" />
+        @if (submitted && !device.operatingSystem) {
+          <span class="error">OS is required</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>OS VERSION *</label>
+        <input [(ngModel)]="device.osVersion" placeholder="e.g. 17.0" />
+        @if (submitted && !device.osVersion) {
+          <span class="error">OS Version is required</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>PROCESSOR *</label>
+        <input [(ngModel)]="device.processor" placeholder="e.g. A17 Pro" />
+        @if (submitted && !device.processor) {
+          <span class="error">Processor is required</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>RAM (GB) *</label>
+        <input type="number" [(ngModel)]="device.ram" placeholder="e.g. 8" />
+        @if (submitted && !device.ram) {
+          <span class="error">RAM is required</span>
+        }
+      </div>
+      <div class="form-group"></div>
+    </div>
+
+    <div class="description-section">
+      <div class="description-header">
+        <label>DESCRIPTION</label>
+        <button type="button" (click)="generateDescription()" class="btn-generate" [disabled]="isGenerating">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+          {{ isGenerating ? 'Generating...' : 'Generate with AI' }}
+        </button>
+      </div>
+      <textarea [(ngModel)]="device.description" placeholder="Optional description" rows="5"></textarea>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label>Manufacturer *</label>
-    <input [(ngModel)]="device.manufacturer" placeholder="e.g. Apple" />
-    @if (submitted && !device.manufacturer) {
-      <span class="error">Manufacturer is required</span>
-    }
-  </div>
+  <div class="sidebar">
+    <div class="info-card">
+      <div class="info-card-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <div>
+          <strong>{{ device.name || 'New Device' }}</strong>
+          <span>Status: {{ isEditMode ? 'Editing' : 'Drafting' }}</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <label>Type *</label>
-    <select [(ngModel)]="device.type">
-      <option value="">Select type</option>
-      <option value="SmartPhone">SmartPhone</option>
-      <option value="Tablet">Tablet</option>
-    </select>
-    @if (submitted && !device.type) {
-      <span class="error">Type is required</span>
-    }
+    <div class="tips-card">
+      <h3>Configuration Tips</h3>
+      <div class="tip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <p>Use standardized naming conventions for easier filtering in the dashboard.</p>
+      </div>
+      <div class="tip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <p>OS version should be the specific build number for security compliance tracking.</p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="form-group">
-    <label>Operating System *</label>
-    <input [(ngModel)]="device.operatingSystem" placeholder="e.g. iOS" />
-    @if (submitted && !device.operatingSystem) {
-      <span class="error">OS is required</span>
-    }
-  </div>
-
-  <div class="form-group">
-    <label>OS Version *</label>
-    <input [(ngModel)]="device.osVersion" placeholder="e.g. 17.0" />
-    @if (submitted && !device.osVersion) {
-      <span class="error">OS Version is required</span>
-    }
-  </div>
-
-  <div class="form-group">
-    <label>Processor *</label>
-    <input [(ngModel)]="device.processor" placeholder="e.g. A17 Pro" />
-    @if (submitted && !device.processor) {
-      <span class="error">Processor is required</span>
-    }
-  </div>
-
-  <div class="form-group">
-    <label>RAM (GB) *</label>
-    <input type="number" [(ngModel)]="device.ram" placeholder="e.g. 8" />
-    @if (submitted && !device.ram) {
-      <span class="error">RAM is required</span>
-    }
-  </div>
-
-  <div class="form-group">
-    <label>Description</label>
-    <textarea [(ngModel)]="device.description" placeholder="Optional description" rows="3"></textarea>
-    <button type="button" (click)="generateDescription()" class="btn-generate" [disabled]="isGenerating">
-      {{ isGenerating ? 'Generating...' : 'Generate with AI' }}
-    </button>
-  </div>
-
-  <div class="form-actions">
-    <button (click)="save()" class="btn-save">
-      {{ isEditMode ? 'Update' : 'Create' }}
-    </button>
-    <a routerLink="/devices" class="btn-cancel">Cancel</a>
-  </div>
+<div class="form-actions">
+  <a routerLink="/devices" class="btn-cancel">Cancel</a>
+  <button (click)="save()" class="btn-save">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
 </div>
